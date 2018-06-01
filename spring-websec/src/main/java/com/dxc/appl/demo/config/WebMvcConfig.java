@@ -10,6 +10,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 //		registry.addViewController("/").setViewName("index"); this is handled by the WelcomeController !
+		registry.addViewController("/public").setViewName("public");
 		registry.addViewController("/pageOne").setViewName("pageOne");
 		registry.addViewController("/pageTwo").setViewName("pageTwo");
 	}

@@ -6,8 +6,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 @EnableWebSecurity
@@ -27,6 +25,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	            .permitAll()
 //	    	.antMatchers("/pageOne", "/pageTwo")
 //	    		.hasRole("USER")
+	        .antMatchers("/public")
+	        	.permitAll()
+	        .antMatchers("/pageTwo")
+	        	.hasRole("ADMIN")
 	        .anyRequest()
 	        	.authenticated()
 	        .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
@@ -63,12 +65,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		UserBuilder users = User.withDefaultPasswordEncoder(); // this is OK for getting started!
 		auth
-			.inMemoryAuthentication()
-//			.passwordEncoder()
-				.withUser(users.username("user").password("password").roles("USER"))
-				.withUser(users.username("admin").password("password").roles("USER","ADMIN"));
-//				.withUser("user").password("password").roles("USER");
+        	.inMemoryAuthentication()
+        		.withUser("user")
+        			.password("{noop}password")
+        			.roles("USER")
+        		.and()
+        		.withUser("admin")
+        			.password("{noop}password")
+        			.roles("USER", "ADMIN");
+		// {noop} : DelegatingPwdEncoder : https://stackoverflow.com/questions/46999940/spring-boot-passwordencoder-error?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa#answer-47150363
 	}
 }

@@ -23,5 +23,11 @@ This will only be displayed if authenticated user has role ROLE_ADMIN.
          -->  
       <a th:href="@{/pageOne}">page 1 page</a>  
       <a th:href="@{/pageTwo}">page 2 page</a>
+      
+      <!-- logout button -->
+      <a href="javascript: document.logoutForm.submit()" role="menuitem"> Logout</a>
+	  <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        <input hidden type="submit" value="Sign Out"/>
+      </form>
    </body>    
 </html>
