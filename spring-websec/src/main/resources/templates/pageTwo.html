@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Page Two</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+   </head>
+   <body>
+      <h1>Page 2</h1>
+      <h2 th:utext="${message}">..!..</h2>
+       
+ 
+      <a th:href="@{/}">Welcome (Index) page</a>  
+       <a th:href="@{/pageOne}">page 1 page</a>
+   </body>    
+</html>

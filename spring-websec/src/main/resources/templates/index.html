@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Welcome Index Page</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+   </head>
+   <body>
+      <h1>Welcome</h1>
+      <h2 th:utext="${message}">..!..</h2>
+      <!-- depends upon thymeleaf-extras-springsecurity4 : -->
+       <!-- <span th:text ="${#authentication.getPrincipal().getUser().getFirstName()}"></span> -->
+       <p>Currently logged-in user is : <span th:text ="${#authentication.name}">NOBODY</span></p>
+		
+       <div sec:authorize="hasRole('ROLE_ADMIN')">
+This will only be displayed if authenticated user has role ROLE_ADMIN.
+		</div>
+
+      <!--  
+         In Thymeleaf the equivalent of
+         JSP's ${pageContext.request.contextPath}/edit.html
+         would be @{/edit.html}
+         -->  
+      <a th:href="@{/pageOne}">page 1 page</a>  
+      <a th:href="@{/pageTwo}">page 2 page</a>
+   </body>    
+</html>
